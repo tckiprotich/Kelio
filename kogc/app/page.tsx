@@ -30,9 +30,17 @@ export default function Home() {
           <svg fill="none" viewBox="0 0 400 400" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg" className="absolute -mt-24 blur-3xl">
             {/* SVG content */}
           </svg>
-          <video className="relative object-cover w-full rounded shadow-2xl lg:rounded-2xl" controls muted>
-            <source src="https://d33wubrfki0l68.cloudfront.net/b3fb0d3c87038c6a1517d3220eedee8bead88964/419d0/monoqrom.mp4" />
-          </video>
+          <div style={{ width: '80vw', height: '100vh' }}>
+  <iframe 
+    className="relative object-cover w-full rounded shadow-2xl lg:rounded-2xl"
+    src="https://www.youtube.com/embed/pPO9M0P_I_k" 
+    frameBorder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen
+    width="100%"
+    height="100%"
+  ></iframe>
+</div>
         </div>
       </div>
     </section>
