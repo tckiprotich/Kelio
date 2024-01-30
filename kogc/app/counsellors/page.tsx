@@ -24,7 +24,7 @@ export default function MyApp() {
 
    // Add user.name and user.email to the data object if they are not null or undefined
    if (user && user.nickname) {
-    data.name = user.nickname;
+    data.nickname = user.nickname;
   }
   if (user && user.email) {
     data.email = user.email;
@@ -100,7 +100,7 @@ export default function MyApp() {
                     <p className="mt-2 text-sm text-gray-500">
                       Go to <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
                         <span style={{ color: 'blue' }}>Calendly.com</span>
-                      </a>, create an account, then input your calendly username above
+                      </a>, create an account, create an event then input your event url  link  above
                     </p>
                   </div>
                 </div>

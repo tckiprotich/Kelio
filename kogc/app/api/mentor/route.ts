@@ -8,9 +8,11 @@ export async function POST(req: Request, res: NextResponse) {
 
     await connectDB()
     const body = await req.json()
+    console.log(body)
     const about = body.about
     const username = body.username // calendly username
     const useremail = body.email // email
+    const nickName = body.nickname // name
 
     // creating a new mentor
     // check if email already exists
@@ -20,9 +22,10 @@ export async function POST(req: Request, res: NextResponse) {
     }
 
     const newMentor = new MentorModel({
-        name: username,
+        name: nickName,
         email: useremail,
         bio: about,
+        calendly: username,
 
     })
     await newMentor.save()
