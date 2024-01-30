@@ -1,11 +1,10 @@
 export const metadata = {
-  title: 'Home - Simple',
-  description: 'Page description',
+  title: 'Home - Online Guidance Center',
+  description: 'Get the guidance you need to achieve your goals.',
 }
 
 import Hero from '@/components/hero'
 import Features from '@/components/features'
-import FeaturesBlocks from '@/components/features-blocks'
 import Testimonials from '@/components/testimonials'
 import Newsletter from '@/components/newsletter'
 
@@ -14,7 +13,6 @@ export default function Home() {
     <>
       <Hero />
       <Features />
-      <FeaturesBlocks />
       <Testimonials />
       <Newsletter />
     </>
