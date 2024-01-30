@@ -1,6 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose, { Document, Model } from 'mongoose';
 
-const mentorSchema = new mongoose.Schema({
+interface IMentor extends Document {
+  name: string;
+  picture?: string;
+  email: string;
+  bio?: string;
+  calendly?: string;
+}
+
+const mentorSchema = new mongoose.Schema<IMentor>({
   name: {
     type: String,
     required: true,
@@ -11,7 +19,6 @@ const mentorSchema = new mongoose.Schema({
     required: false,
     trim: true,
   },
-  
   email: {
     type: String,
     required: true,
@@ -23,12 +30,17 @@ const mentorSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-    calendly: {
-        type: String,
-        trim: true,
-    },
+  calendly: {
+    type: String,
+    trim: true,
+  },
 });
 
-const Mentor = mongoose.model.Mentor || mongoose.model('Mentor', mentorSchema);
+let Mentor: Model<IMentor>;
+try {
+  Mentor = mongoose.model<IMentor>('Mentor');
+} catch (error) {
+  Mentor = mongoose.model<IMentor>('Mentor', mentorSchema);
+}
 
-module.exports = Mentor;
+export default Mentor;
