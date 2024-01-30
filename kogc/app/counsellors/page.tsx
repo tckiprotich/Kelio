@@ -100,7 +100,7 @@ export default function MyApp() {
                     <p className="mt-2 text-sm text-gray-500">
                       Go to <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">
                         <span style={{ color: 'blue' }}>Calendly.com</span>
-                      </a>, create an account, create an event then input your event url  link  above
+                      </a>, create an account, create an event then input your event url  link  above as shown in the example.
                     </p>
                   </div>
                 </div>
