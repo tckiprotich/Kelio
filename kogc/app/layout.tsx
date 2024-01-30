@@ -1,4 +1,5 @@
 import './css/style.css'
+import { ClerkProvider } from '@clerk/nextjs'
 
 import { Inter } from 'next/font/google'
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    // <ClerkProvider>
     <html lang="en">
       <body className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}>
         <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
@@ -31,5 +33,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
+    
   )
 }
