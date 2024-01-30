@@ -7,8 +7,46 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+
 export default function Example() {
   const [agreed, setAgreed] = useState(false)
+  // ...
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    email: '',
+    phoneNumber: '',
+    message: '',
+    agreed: false,
+  });
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+  
+    console.log(formData); // log the form data
+  
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+  
+    if (response.ok) {
+      alert('Your message has been sent. Thank you!');
+    } else {
+      // handle error
+      alert('Something went wrong. Please try again.');
+    }
+  };
+
+  // ...
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -30,7 +68,7 @@ export default function Example() {
           We're continuously working to enhance your experience. Your feedback is invaluable. If you have suggestions, thoughts, or success stories to share, please reach out to us.
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
             <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
@@ -39,10 +77,12 @@ export default function Example() {
             <div className="mt-2.5">
               <input
                 type="text"
-                name="first-name"
+                name="firstName"
                 id="first-name"
                 autoComplete="given-name"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={formData.firstName}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -59,6 +99,8 @@ export default function Example() {
                 id="email"
                 autoComplete="email"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={formData.email}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -69,10 +111,12 @@ export default function Example() {
             <div className="relative mt-2.5">
               <input
                 type="tel"
-                name="phone-number"
+                name="phoneNumber"
                 id="phone-number"
                 autoComplete="tel"
                 className="block w-full rounded-md border-0  py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={formData.phoneNumber}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -86,7 +130,8 @@ export default function Example() {
                 id="message"
                 rows={4}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={''}
+                value={formData.message}
+                onChange={handleChange}
               />
             </div>
           </div>
