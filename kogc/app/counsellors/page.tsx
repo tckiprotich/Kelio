@@ -1,5 +1,5 @@
 'use client'
-import { UserProvider, useUser } from '@auth0/nextjs-auth0/client';
+import { UserProvider, useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import { getSession } from '@auth0/nextjs-auth0';
 
@@ -11,8 +11,8 @@ export default function MyApp() {
   );
 }
 
-function ProfileClient() {
-  const { user, error, isLoading } = useUser();
+  const ProfileClient = withPageAuthRequired(function ProfileClient({user}) {
+  const {error, isLoading } = useUser();
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
@@ -23,14 +23,14 @@ function ProfileClient() {
 
     const data = Object.fromEntries(formData);
 
-    // Add user.name and user.email to the data object if they are not null or undefined
-    if (user && user.nickname) {
-      data.name = user.nickname;
-    }
-    if (user && user.email) {
-      data.email = user.email;
-    }
-
+   // Add user.name and user.email to the data object if they are not null or undefined
+   if (user && user.nickname) {
+    data.name = user.nickname;
+  }
+  if (user && user.email) {
+    data.email = user.email;
+  }
+  
     console.log(data);
     const response = await fetch('/api/mentor/', {
       method: 'POST',
@@ -47,7 +47,7 @@ function ProfileClient() {
 
     const responseData = await response.json();
     alert(responseData.message);
-
+  
   }
 
   // <h2>{user.name}</h2>
@@ -73,8 +73,8 @@ function ProfileClient() {
                 <p className="text-sm text-gray-500">{user.email}</p>
               </div>
             </div>
-          </div>
-
+            </div>
+            
           <div className="space-y-12">
             <div className="border-b border-gray-900/10 pb-12">
               <h2 className="pt-10 text-3xl font-semibold leading-7 text-gray-900">Profile</h2>
@@ -106,9 +106,9 @@ function ProfileClient() {
                   </div>
                 </div>
 
+                
 
-
-
+                
 
                 <div className="col-span-full">
                   <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
@@ -154,3 +154,4 @@ function ProfileClient() {
     )
   );
 }
+  )
