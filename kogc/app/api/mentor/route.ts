@@ -9,8 +9,8 @@ export async function POST(req: Request, res: NextResponse) {
     await connectDB()
     const body = await req.json()
     const about = body.about
-    const username = body.username
-    const useremail = body.email
+    const username = body.username // calendly username
+    const useremail = body.email // email
 
     // creating a new mentor
     // check if email already exists

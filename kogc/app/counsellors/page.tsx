@@ -1,7 +1,6 @@
 'use client'
 import { UserProvider, useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
-import { getSession } from '@auth0/nextjs-auth0';
 
 export default function MyApp() {
   return (
