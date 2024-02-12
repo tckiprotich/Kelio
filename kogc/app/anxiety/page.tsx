@@ -29,7 +29,7 @@ class Home extends React.Component {
     }
   
     return new Talk.Session({
-      appId: "t0cg10YR",
+      appId: "tgfZ9mSr",
       me: new Talk.User({
         id: sessionId,
         name: `Guest ${sessionId}`,
