@@ -50,7 +50,7 @@ export default function Example() {
 
   return (
     <div className='mx-auto py-14 sm:mx-auto'>
-      {/* <div>Hello, {user.primaryEmailAddressId} welcome to Clerk</div> */}
+      {/* <div>Hello, {user.username} welcome to Clerk</div> */}
       <form onSubmit={handleSubmit}>
         <div className="mx-auto space-y-12">
           <div className="border-b border-gray-900/10 pb-12">

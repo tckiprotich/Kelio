@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import Link from 'next/link'
+import { UserButton } from "@clerk/nextjs";
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState<boolean>(false)
@@ -63,7 +64,7 @@ export default function MobileMenu() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <ul className="px-5 py-2">
+          <ul className="mx-auto px-5 py-2 m-10">
             {/* <li>
               <Link href="/signin" className="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>Sign in</Link>
             </li> */}
@@ -75,6 +76,11 @@ export default function MobileMenu() {
                 </svg>
               </Link>
             </li>
+            {/* BEGIN: ed8c6549bwf9 */}
+            <li className="flex justify-center">
+              <UserButton afterSignOutUrl="/" />
+            </li>
+            {/* END: ed8c6549bwf9 */}
           </ul>          
         </Transition>
       </div>
