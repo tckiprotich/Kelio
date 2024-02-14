@@ -82,10 +82,7 @@ export default function MobileMenu() {
               <UserButton afterSignOutUrl="/" />
             </li>
             {/* END: ed8c6549bwf9 */}
-            <li className="flex justify-between">
-              <Link href="/home" className="btn-sm text-gray-200 bg-blue-900 hover:bg-gray-800 ml-3 flex">
-                <span>Book</span>
-              </Link>
+            <li className="flex justify-between">              
               <Link href="/newchat" className="btn-sm text-gray-200 bg-blue-900 hover:bg-gray-800 ml-3 flex">
                 <span>Chat</span>
               </Link>
