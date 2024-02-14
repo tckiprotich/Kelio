@@ -68,6 +68,7 @@ export default function MobileMenu() {
             {/* <li>
               <Link href="/signin" className="flex font-medium w-full text-gray-600 hover:text-gray-900 py-2 justify-center" onClick={() => setMobileNavOpen(false)}>Sign in</Link>
             </li> */}
+            
             <li>
               <Link href="/home" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2" onClick={() => setMobileNavOpen(false)}>
                 <span>Schedule session</span>
@@ -81,7 +82,16 @@ export default function MobileMenu() {
               <UserButton afterSignOutUrl="/" />
             </li>
             {/* END: ed8c6549bwf9 */}
-          </ul>          
+            <li className="flex justify-between">
+              <Link href="/home" className="btn-sm text-gray-200 bg-blue-900 hover:bg-gray-800 ml-3 flex">
+                <span>Book</span>
+              </Link>
+              <Link href="/newchat" className="btn-sm text-gray-200 bg-blue-900 hover:bg-gray-800 ml-3 flex">
+                <span>Chat</span>
+              </Link>
+            </li>
+          </ul>    
+             
         </Transition>
       </div>
     </div>
