@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
-    "@clerk/nextjs": "^4.29.5",
+    "@clerk/nextjs": "^4.29.7",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@pubnub/react-chat-components": "^0.33.0",

@@ -1,20 +1,25 @@
 import mongoose, { Document, Model } from 'mongoose';
 
 interface IMentor extends Document {
-  name: string;
-  picture?: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  bio?: string;
+  about?: string;
   calendly?: string;
 }
 
 const mentorSchema = new mongoose.Schema<IMentor>({
-  name: {
+  firstName: {
     type: String,
     required: true,
     trim: true,
   },
-  picture:{
+  lastName: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  about:{
     type: String,
     required: false,
     trim: true,
@@ -24,10 +29,6 @@ const mentorSchema = new mongoose.Schema<IMentor>({
     required: true,
     unique: true,
     lowercase: true,
-    trim: true,
-  },
-  bio: {
-    type: String,
     trim: true,
   },
   calendly: {

@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { ClerkProvider } from '@clerk/nextjs'
+
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -12,7 +14,7 @@ export default function DefaultLayout({
   children,
 }: {
   children: React.ReactNode
-}) {  
+}) {
 
   useEffect(() => {
     AOS.init({
@@ -24,20 +26,20 @@ export default function DefaultLayout({
   })
 
   return (
-    <UserProvider>
-    <>
-  
-    
-      <main className="grow">
+    // <ClerkProvider>
+      <>
 
-        {children}
 
-      </main>
+        <main className="grow">
 
-      <Footer />
-     
-      
-    </>
-    </UserProvider>
+          {children}
+
+        </main>
+
+        <Footer />
+
+
+      </>
+    // </ClerkProvider>
   )
 }
