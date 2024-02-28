@@ -26,6 +26,7 @@ const Home = () => {
           name: `${sessionId}`,
           email: null,
           welcomeMessage: "Hello, ",
+          role: 'default'
         })
       });
 

@@ -2,6 +2,7 @@
 "use client"
 import * as React from "react";
 import Talk from "talkjs";
+import { Inbox } from '@talkjs/react';
 import { useUser } from "@clerk/nextjs";
 
 const Home = () => {
@@ -50,12 +51,16 @@ const Home = () => {
   }, [session]);
 
   return (
+    <div>
+       <Inbox conversationId="4563832" loadingComponent={<h1>Loading..</h1>} />;
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        
       <div className="text-2xl mb-2">Welcome to Chat Session</div>
       <p>Please be mindful of others and use appropriate language</p>
       <div className="bg-white w-96 h-96 border border-gray-300 rounded shadow" ref={chatContainerRef}>
         loading chat...
       </div>
+    </div>
     </div>
   );
 };
