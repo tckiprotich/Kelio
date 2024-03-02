@@ -1,68 +1,66 @@
-// @ts-nocheck
 "use client"
-import * as React from "react";
-import Talk from "talkjs";
-import { Inbox } from '@talkjs/react';
+import { useEffect } from 'react';
+import Talk from 'talkjs';
+import { useRouter } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useUser } from "@clerk/nextjs";
+import * as React from "react";
 
-const Home = () => {
-  const chatContainerRef = React.useRef();
+export default function Chat() {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const { isLoaded, isSignedIn, user } = useUser();
   const [session, setSession] = React.useState(null);
-
-  React.useEffect(() => {
-    const makeTalkSession = async () => {
-      await Talk.ready;
-
-      if (!isLoaded || !isSignedIn) {
-        return null;
+  const mentorId = searchParams?.get('mentorId');
+  const mentorName = searchParams?.get('mentorName');
+  const mentorEmail = searchParams?.get('mentorEmail');
+  console.log("useeeeer",user?.id);
+  useEffect(() => {
+    const initializeChat = async () => {
+      if (!isLoaded) {
+        return;
       }
+      await Talk.ready;
+    
 
-      const sessionId = user.username;
-
-      const newSession = new Talk.Session({
-        appId: "t0cg10YR",
-        me: new Talk.User({
-          id: sessionId,
-          name: `${sessionId}`,
-          email: null,
-          welcomeMessage: "Hello, ",
-          role: 'default'
-        })
+      const me = new Talk.User({
+        id: user?.username,
+        name: user?.username,
+        email: user?.emailAddress,
+        photoUrl: user?.imageUrl,
+        role: 'default',
       });
 
-      setSession(newSession);
+      const session = new Talk.Session({
+        appId: 't0cg10YR',
+        me: me,
+      });
+
+      const other = new Talk.User({
+        id: mentorId,
+        name: mentorName,
+        email: mentorEmail,
+        photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+        welcomeMessage: 'Hey, how can I help?',
+      });
+
+      const conversation = session.getOrCreateConversation(
+        Talk.oneOnOneId(me, other)
+      );
+      conversation.setAttributes({
+        subject: 'Counseling chat session',
+      });
+      conversation.setParticipant(me);
+      conversation.setParticipant(other);
+
+      const inbox = session.createInbox();
+      inbox.select(conversation);
+      inbox.mount(document.getElementById('talkjs-container'));
     };
 
-    makeTalkSession();
-  }, [isLoaded, isSignedIn, user]);
+    initializeChat();
+  }, [isLoaded]);
 
-  React.useEffect(() => {
-    const mountChat = async () => {
-      if (session) {
-        const conversation = session.getOrCreateConversation('4563832');
-        const chatbox = session.createChatbox();
-        chatbox.select(conversation, { asGuest: true });
-        chatbox.mount(chatContainerRef.current);
-      }
-    };
-
-    mountChat();
-  }, [session]);
-
-  return (
-    <div>
-       <Inbox conversationId="4563832" loadingComponent={<h1>Loading..</h1>} />;
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-        
-      <div className="text-2xl mb-2">Welcome to Chat Session</div>
-      <p>Please be mindful of others and use appropriate language</p>
-      <div className="bg-white w-96 h-96 border border-gray-300 rounded shadow" ref={chatContainerRef}>
-        loading chat...
-      </div>
-    </div>
-    </div>
-  );
-};
-
-export default Home;
+  return <div id="talkjs-container" style={{ height: '500px',paddingTop:'40px' }} />;
+}

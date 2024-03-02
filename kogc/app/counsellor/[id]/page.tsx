@@ -2,6 +2,7 @@
 'use client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 type Mentor = {
     name: string;
@@ -55,9 +56,10 @@ export default function Counselor() {
                                 <a href={mentor.calendly} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Schedule a session
                                 </a>
-                                <a href="/mchat" className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Chat with {mentor.firstName}
-                                </a>
+                                <Link href={`/mchat?mentorId=${mentor._id}&mentorName=${mentor.firstName}&mentorEmail=${mentor.email}`} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                     
+                                        Chat with {mentor.firstName}
+                                </Link>
                             </div>
                         </div>
                     </div>

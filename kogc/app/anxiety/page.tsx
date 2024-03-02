@@ -20,7 +20,7 @@ const Home = () => {
       const sessionId = user.username;
 
       const newSession = new Talk.Session({
-        appId: "tgfZ9mSr",
+        appId: "t0cg10YR",
         me: new Talk.User({
           id: sessionId,
           name: `${sessionId}`,
