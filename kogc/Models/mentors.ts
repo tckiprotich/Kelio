@@ -6,6 +6,7 @@ interface IMentor extends Document {
   email: string;
   about?: string;
   calendly?: string;
+  readonly role: string;
 }
 
 const mentorSchema = new mongoose.Schema<IMentor>({
@@ -34,6 +35,10 @@ const mentorSchema = new mongoose.Schema<IMentor>({
   calendly: {
     type: String,
     trim: true,
+  },
+  role: {
+    type: String,
+    default: 'mentor',
   },
 });
 

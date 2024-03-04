@@ -6,25 +6,23 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useUser } from "@clerk/nextjs";
 import * as React from "react";
 
-export default function Chat() {
+export default function Chat({ mentorId, mentorName }) {
+  console.log("mentorId mento page", mentorId)
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { isLoaded, isSignedIn, user } = useUser();
   const [session, setSession] = React.useState(null);
-  const mentorId = searchParams?.get('mentorId');
-  const mentorName = searchParams?.get('mentorName');
-  const mentorEmail = searchParams?.get('mentorEmail');
-  
+
   useEffect(() => {
     const initializeChat = async () => {
       if (!isLoaded) {
-        console.log("useeeeer",user?.id);
+        console.log("useeeeer", user?.id);
         return;
       }
-  
+
       await Talk.ready;
-  
+
       const me = new Talk.User({
         id: user?.username,
         name: user?.username,
@@ -41,7 +39,7 @@ export default function Chat() {
       const other = new Talk.User({
         id: mentorId,
         name: mentorName,
-        email: mentorEmail,
+        // email: mentorEmail,
         welcomeMessage: 'Hey, how can I help?',
       });
 
@@ -62,5 +60,5 @@ export default function Chat() {
     initializeChat();
   }, [isLoaded]);
 
-  return <div id="talkjs-container" style={{ height: '500px',paddingTop:'40px' }} />;
+  return <div id="talkjs-container" style={{ height: '500px', paddingTop: '40px' }} />;
 }

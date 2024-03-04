@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
@@ -20,7 +21,7 @@ const Index = () => {
   };
 
   return (
-    <div>
+    <div className='py-20 mt-10'>
       <h1>Real-Time Chat</h1>
       <div>
         {messages.map((message, index) => (

@@ -2,16 +2,19 @@
 import { useCallback } from 'react';
 import Talk from 'talkjs';
 import { Session, Chatbox } from '@talkjs/react';
+import { useUser } from "@clerk/nextjs";
 
 function ChatComponent() {
+
+  const { isLoaded, isSignedIn, user } = useUser();
+  console.log('user', user);
   const syncUser = useCallback(
     () =>
       new Talk.User({
-        id: 'nina',
-        name: 'Nina',
-        email: 'nina@example.com',
-        photoUrl: 'https://talkjs.com/new-web/avatar-7.jpg',
-        welcomeMessage: 'Hi!',
+        id: "collins",
+        name: "collins",
+        email: user?.emailAddress,
+        photoUrl: user?.imageUrl,
         role: 'default',
       }),
     []
