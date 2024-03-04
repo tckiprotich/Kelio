@@ -43,6 +43,9 @@ const Home = () => {
         const chatbox = session.createChatbox();
         chatbox.select(conversation, { asGuest: true });
         chatbox.mount(chatContainerRef.current);
+        conversation.setAttributes({
+          subject: 'Trauma Chat',
+        });
       }
     };
 

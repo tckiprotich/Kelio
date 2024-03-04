@@ -101,8 +101,8 @@ export default function Counselor() {
                         <MentoChat mentorId={mentorId} mentorName={mentorName} />
                     )}
                     <p style={{ marginBottom: '20px' }}>Click on a button to copy its group Link:</p>
-                    <button style={{ marginRight: '10px', padding: '10px', backgroundColor: '#4CAF50', color: 'white', border: 'none', cursor: 'pointer' }} onClick={() => copyToClipboard('text1')}>Anxiety</button>
-                    <button style={{ padding: '10px', backgroundColor: '#008CBA', color: 'white', border: 'none', cursor: 'pointer' }} onClick={() => copyToClipboard('text2')}>Trauma</button>
+                    <button style={{ marginRight: '10px', padding: '10px', backgroundColor: '#4CAF50', color: 'white', border: 'none', cursor: 'pointer' }} onClick={() => copyToClipboard('http://127.0.0.1:3000/anxiety')}>Anxiety</button>
+                    <button style={{ padding: '10px', backgroundColor: '#008CBA', color: 'white', border: 'none', cursor: 'pointer' }} onClick={() => copyToClipboard('http://127.0.0.1:3000/chat')}>Trauma</button>
                     <p style={{ marginTop: '20px', color: copySuccess === 'Copied!' ? 'green' : 'red' }}>{copySuccess}</p>
                 </div>
             </div>
