@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import { useEffect } from 'react';
 import Talk from 'talkjs';
@@ -29,8 +30,7 @@ export default function Chat() {
         id: user?.username,
         name: user?.username,
         email: user?.emailAddress,
-        photoUrl: user?.imageUrl,
-        role: 'default',
+        role: 'mentee',
       });
 
       const session = new Talk.Session({

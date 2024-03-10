@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { useCallback } from 'react';
 import Talk from 'talkjs';

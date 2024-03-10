@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -32,7 +33,7 @@ export default function Counselor() {
                     if (selectedMentor) {
                         setMentor(selectedMentor);
                     }
-                    console.log('Mentor:', selectedMentor);
+                    // console.log('Mentor:', selectedMentor);
                 }
             } catch (error) {
                 console.error("Error fetching book details:", error);
@@ -42,14 +43,14 @@ export default function Counselor() {
         fetchBookDetails();
     }, [id]);
 
-    console.log("USER EMAIL", user?.primaryEmailAddress.
-        emailAddress
-    )
-    console.log("mentor Email", mentor?.email)
+    // console.log("USER EMAIL", user?.primaryEmailAddress.
+    //     emailAddress
+    // )
+    // console.log("mentor Email", mentor?.email)
 
     const mentorId = mentor?._id;
     const mentorName = mentor?.firstName;
-    console.log("mentoreeeeId", mentorId)
+    // console.log("mentoreeeeId", mentorId)
 
 
     const isUserMentor = mentor && user && mentor.email === user?.primaryEmailAddress?.emailAddress;
@@ -95,8 +96,9 @@ export default function Counselor() {
                     </div>
                 )}                
             </div>
+            <MentoChat mentorId={mentorId} mentorName={mentorName} />
             {/* // Mentor Only ui */}
-            <div style={{ padding: '20px', textAlign: 'center' }}>
+            {/* <div style={{ padding: '20px', textAlign: 'center' }}>
                     {isUserMentor && (
                         <MentoChat mentorId={mentorId} mentorName={mentorName} />
                     )}
@@ -104,7 +106,7 @@ export default function Counselor() {
                     <button style={{ marginRight: '10px', padding: '10px', backgroundColor: '#4CAF50', color: 'white', border: 'none', cursor: 'pointer' }} onClick={() => copyToClipboard('http://127.0.0.1:3000/anxiety')}>Anxiety</button>
                     <button style={{ padding: '10px', backgroundColor: '#008CBA', color: 'white', border: 'none', cursor: 'pointer' }} onClick={() => copyToClipboard('http://127.0.0.1:3000/chat')}>Trauma</button>
                     <p style={{ marginTop: '20px', color: copySuccess === 'Copied!' ? 'green' : 'red' }}>{copySuccess}</p>
-                </div>
+                </div> */}
             </div>
             );
 }

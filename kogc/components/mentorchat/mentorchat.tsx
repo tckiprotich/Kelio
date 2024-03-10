@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import { useEffect } from 'react';
 import Talk from 'talkjs';
@@ -7,27 +8,26 @@ import { useUser } from "@clerk/nextjs";
 import * as React from "react";
 
 export default function Chat({ mentorId, mentorName }) {
-  console.log("mentorId mento page", mentorId)
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { isLoaded, isSignedIn, user } = useUser();
+  // console.log("MYUSEER", user)
   const [session, setSession] = React.useState(null);
 
   useEffect(() => {
     const initializeChat = async () => {
       if (!isLoaded) {
-        console.log("useeeeer", user?.id);
+        console.log("mtumishi",user);
+        console.log(user?.username,)
         return;
       }
 
       await Talk.ready;
 
       const me = new Talk.User({
-        id: user?.username,
-        name: user?.username,
-        email: user?.emailAddress,
-        photoUrl: user?.imageUrl,
+        id: mentorId,
+        name: mentorName,
         role: 'default',
       });
 
@@ -36,29 +36,78 @@ export default function Chat({ mentorId, mentorName }) {
         me: me,
       });
 
+      
+
       const other = new Talk.User({
-        id: mentorId,
-        name: mentorName,
-        // email: mentorEmail,
-        welcomeMessage: 'Hey, how can I help?',
+        id: user?.username,
+        name: user?.username,
+        email: user?.emailAddress,
       });
 
       const conversation = session.getOrCreateConversation(
         Talk.oneOnOneId(me, other)
       );
-      conversation.setAttributes({
-        subject: 'Counseling chat session',
-      });
       conversation.setParticipant(me);
       conversation.setParticipant(other);
+
+      
 
       const inbox = session.createInbox();
       inbox.select(conversation);
       inbox.mount(document.getElementById('talkjs-container'));
+      inbox.onCustomConversationAction('slackInvite', (event) => {       
+          slackInvite("keliosharon@gmail.com");
+        
+      });
+      inbox.onCustomConversationAction('anxiety', (event) => {       
+        anxietyInvite("keliosharon@gmail.com");
+      
+    });
     };
 
     initializeChat();
   }, [isLoaded]);
 
   return <div id="talkjs-container" style={{ height: '500px', paddingTop: '40px' }} />;
+}
+
+
+async function slackInvite(userEmail) {
+  console.log("Inviting user to Slack:", userEmail);
+  const response = await fetch('http://localhost:3000/api/slack', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: userEmail }),
+  });
+
+  const data = await response.json();
+  const inviteResults = data.inviteResults.map(result => {
+    return result.success 
+      ? `invited successfully.` 
+      : `Failed to invite . Error: ${result.error}`;
+  }).join('\n');
+  alert(inviteResults);
+  console.log(data);
+}
+
+async function anxietyInvite(userEmail) {
+  console.log("Inviting user to Slack:", userEmail);
+  const response = await fetch('http://localhost:3000/api/slack/anxiety', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: userEmail }),
+  });
+
+  const data = await response.json();
+  const inviteResults = data.inviteResults.map(result => {
+    return result.success 
+      ? `invited successfully.` 
+      : `Failed to invite . Error: ${result.error}`;
+  }).join('\n');
+  alert(inviteResults);
+  console.log(data);
 }
