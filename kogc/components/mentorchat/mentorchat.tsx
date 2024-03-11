@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useUser } from "@clerk/nextjs";
 import * as React from "react";
+import { Chatbox } from '@talkjs/react';
 
 export default function Chat({ mentorId, mentorName }) {
   const router = useRouter()
@@ -42,6 +43,7 @@ export default function Chat({ mentorId, mentorName }) {
         id: user?.username,
         name: user?.username,
         email: user?.emailAddress,
+        role: 'mentee'
       });
 
       const conversation = session.getOrCreateConversation(
@@ -63,6 +65,10 @@ export default function Chat({ mentorId, mentorName }) {
         anxietyInvite("keliosharon@gmail.com");
       
     });
+    
+  
+
+    
     };
 
     initializeChat();

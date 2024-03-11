@@ -62,5 +62,5 @@ export default function Chat() {
     initializeChat();
   }, [isLoaded]);
 
-  return <div id="talkjs-container" style={{ height: '500px',paddingTop:'40px' }} />;
+  return <div id="talkjs-container" style={{ height: '500px',paddingTop:'100px' }} />;
 }

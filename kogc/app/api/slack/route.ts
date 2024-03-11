@@ -2,11 +2,11 @@
 import { NextResponse } from "next/server";
 import { WebClient } from "@slack/web-api";
 
-const slackToken = "xoxb-4062228885045-6772983115746-yQm8hzTPopH2y153YrTdG0jA";
+const slackToken = process.env.SLACK_BOT_TOKEN;
 const client = new WebClient(slackToken);
 
 const channelId = "C041QH2CL06";
-const userEmails = ["tckiprotich@gmail.com"]; // Replace with the actual emails
+const userEmails = ["keliosharon@gmail.com"]; // Replace with the actual emails
 
 export async function POST(req: Request) {
     const body = await req.json();
@@ -25,19 +25,34 @@ export async function POST(req: Request) {
 
             // Extract the userId from the lookupResult
             const userId = lookupResult.user.id;
+            console.log(`User ID for ${email}: ${userId}`);
 
-            // Invite the user to the channel
-            const inviteResult = await client.conversations.invite({
-                channel: channelId,
-                users: userId,
-            });
+            // Get the list of members in the channel
+            const membersResult = await client.conversations.members({ channel: channelId });
+            if (!membersResult.ok) {
+                console.error(`Failed to fetch members of channel: ${membersResult.error}`);
+                inviteResults.push({ email, success: false, error: membersResult.error });
+                continue;
+            }
 
-            if (inviteResult.ok) {
-                console.log(`User ${email} invited to channel successfully`);
+            // Check if the user is a member of the channel
+            if (membersResult.members.includes(userId)) {
+                console.log(`User ${email} is already in the channel`);
                 inviteResults.push({ email, success: true });
             } else {
-                console.error(`Failed to invite user ${email} to channel: ${inviteResult.error}`);
-                inviteResults.push({ email, success: false, error: inviteResult.error });
+                // The user is not in the channel, invite them to the channel
+                const inviteResult = await client.conversations.invite({
+                    channel: channelId,
+                    users: userId,
+                });
+
+                if (inviteResult.ok) {
+                    console.log(`User ${email} invited to channel successfully`);
+                    inviteResults.push({ email, success: true });
+                } else {
+                    console.error(`Failed to invite user ${email} to channel: ${inviteResult.error}`);
+                    inviteResults.push({ email, success: false, error: inviteResult.error });
+                }
             }
         } catch (error) {
             console.error(`Error inviting user ${email} to channel: ${error.message}`);
@@ -45,14 +60,5 @@ export async function POST(req: Request) {
         }
     }
 
-    // Get the list of members in the channel
-    const membersResult = await client.conversations.members({ channel: channelId });
-    if (!membersResult.ok) {
-        console.error(`Failed to fetch members of channel: ${membersResult.error}`);
-        return NextResponse.json({ success: false, error: membersResult.error });
-    }
-
-    console.log(`Fetched members of channel successfully`, membersResult.members);
-
-    return NextResponse.json({ success: true, inviteResults, members: membersResult.members });
+    return NextResponse.json({ success: true, inviteResults });
 }
