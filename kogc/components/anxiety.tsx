@@ -8,7 +8,7 @@ export default function Create() {
         <div className="flex flex-col   border-2 h-40 items-center justify-center">
             <div className="py-4 px-8  shadow-lg rounded-lg my-20">
                 <div className="mt-4">
-                    <label htmlFor="formFile" className="text-xl font-bold mb-2">Axienty Group Chat </label>
+                    <label htmlFor="formFile" className="text-xl font-bold mb-2">Anxiety Group Chat </label>
                     
                 </div>
                 <Link href="/anxiety">

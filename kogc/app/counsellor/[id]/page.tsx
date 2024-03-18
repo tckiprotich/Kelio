@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useUser } from "@clerk/nextjs";
-import MentoChat from "../../../components/mentorchat/mentorchat";
+// import MentoChat from "../../../components/mentorchat/mentorchat";
 
 type Mentor = {
     name: string;
@@ -21,7 +21,7 @@ export default function Counselor() {
     const [mentor, setMentor] = useState<Mentor | null>(null);
     const { isLoaded, isSignedIn, user } = useUser();
     const [copySuccess, setCopySuccess] = useState('');
-
+    
     // Fetch the counselor data from local storage
     useEffect(() => {
         const fetchBookDetails = async () => {
@@ -90,6 +90,7 @@ export default function Counselor() {
                             </div>
                         </div>
                     </div>
+                
                 ) : (
                     <div className="flex items-center justify-center h-screen">
                         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
@@ -100,7 +101,7 @@ export default function Counselor() {
             {/* // Mentor Only ui */}
             <div style={{ padding: '20px', textAlign: 'center' }}>
                     {isUserMentor && (
-                        <MentoChat mentorId={mentorId} mentorName={mentorName} />
+                        // <MentoChat mentorId={mentorId} mentorName={mentorName} />
                     )}
                 </div>
             </div>

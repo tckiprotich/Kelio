@@ -1,5 +1,5 @@
 import React from "react";
-import Upload from '../../components/anxienty'
+import Upload from '../../components/anxiety'
 import Create from '../../components/Trauma'
 // import List from '../../components/'
 function Index() {
