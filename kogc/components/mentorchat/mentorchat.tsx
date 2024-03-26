@@ -91,7 +91,7 @@ async function slackInvite(userEmail) {
   const data = await response.json();
   const inviteResults = data.inviteResults.map(result => {
     return result.success 
-      ? `invited successfully.` 
+      ? `Already in channel.` 
       : `Failed to invite . Error: ${result.error}`;
   }).join('\n');
   alert(inviteResults);
